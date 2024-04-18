@@ -1,0 +1,2 @@
+CREATE TABLE "public"."user_detail" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NOT NULL, "profile_picture" varchar, "birth_date" date, "gender" varchar, "address_line_1" varchar, "address_line_2" varchar, "city" varchar, "state" varchar, "country" varchar, "postal_code" varchar, "created_at" timestamp with time zone DEFAULT now(), "updated_at" timestamp with time zone DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON UPDATE restrict ON DELETE cascade, UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

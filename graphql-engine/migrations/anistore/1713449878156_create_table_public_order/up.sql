@@ -1,0 +1,2 @@
+CREATE TABLE "public"."order" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NOT NULL, "total_payment" numeric NOT NULL DEFAULT 0, "status" varchar NOT NULL, "created_at" timestamp DEFAULT now(), "updated_at" timestamp DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON UPDATE restrict ON DELETE no action, UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

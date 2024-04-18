@@ -1,0 +1,2 @@
+CREATE TABLE "public"."item" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" varchar NOT NULL, "description" varchar, "stock" integer NOT NULL DEFAULT 0, "price" numeric NOT NULL DEFAULT 0, "status" varchar NOT NULL DEFAULT 'Ready Stock', "embedding" vector, "created_at" timestamp with time zone DEFAULT now(), "updated_at" timestamp with time zone DEFAULT now(), PRIMARY KEY ("id") , UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
