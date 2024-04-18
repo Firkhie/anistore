@@ -1,0 +1,21 @@
+FROM ankane/pgvector:latest
+
+# Install locales and generate desired locale
+RUN apt-get update && apt-get install -y locales \
+    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen
+
+# Set locale environment variables
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# Install additional packages
+RUN apt-get update && apt-get install -y build-essential curl postgresql-server-dev-all python3-pip
+
+# Install pgcrypto and uuid-ossp extensions
+RUN echo "CREATE EXTENSION pgcrypto;" >> /docker-entrypoint-initdb.d/init.sql
+RUN echo "CREATE EXTENSION \"uuid-ossp\";" >> /docker-entrypoint-initdb.d/init.sql
+
+# Copy the custom init.sql file (if you have additional initialization SQL commands)
+COPY postgres-init.sql /docker-entrypoint-initdb.d/init.sql
