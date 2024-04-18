@@ -1,0 +1,8 @@
+- name: anistore
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url: postgres://postgres:password@postgres:5432/anistore
+      isolation_level: read-committed
+      use_prepared_statements: false
+  tables: "!include anistore/tables/tables.yaml"
