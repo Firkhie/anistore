@@ -10,6 +10,7 @@ Released under the MIT licence: see LICENCE file
 declare module 'zapatos/schema' {
 
   import type * as db from 'zapatos/db';
+  import type * as c from 'zapatos/custom';
 
   // got a type error on schemaVersionCanary below? update by running `npx zapatos`
   export interface schemaVersionCanary extends db.SchemaVersionCanary { version: 104 }
@@ -23,112 +24,3291 @@ declare module 'zapatos/schema' {
   /* --- tables --- */
 
   /**
-   * **test**
+   * **cart**
    * - Table in database
    */
-  export namespace test {
-    export type Table = 'test';
+  export namespace cart {
+    export type Table = 'cart';
     export interface Selectable {
       /**
-      * **test.email**
-      * - `text` in database
+      * **cart.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **cart.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **cart.item_id**
+      * - `uuid` in database
       * - `NOT NULL`, no default
       */
-      email: string;
+      item_id: string;
       /**
-      * **test.id**
+      * **cart.quantity**
       * - `int4` in database
-      * - `NOT NULL`, default: `nextval('test_id_seq'::regclass)`
+      * - `NOT NULL`, default: `1`
       */
-      id: number;
+      quantity: number;
       /**
-      * **test.name**
-      * - `text` in database
+      * **cart.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+      /**
+      * **cart.user_id**
+      * - `uuid` in database
       * - `NOT NULL`, no default
       */
-      name: string;
+      user_id: string;
     }
     export interface JSONSelectable {
       /**
-      * **test.email**
-      * - `text` in database
+      * **cart.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **cart.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **cart.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **cart.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, default: `1`
+      */
+      quantity: number;
+      /**
+      * **cart.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+      /**
+      * **cart.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface Whereable {
+      /**
+      * **cart.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **cart.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **cart.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **cart.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, default: `1`
+      */
+      quantity?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **cart.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **cart.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **cart.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **cart.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **cart.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **cart.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, default: `1`
+      */
+      quantity?: number | db.Parameter<number> | db.DefaultType | db.SQLFragment;
+      /**
+      * **cart.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **cart.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string | db.Parameter<string> | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **cart.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **cart.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **cart.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **cart.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, default: `1`
+      */
+      quantity?: number | db.Parameter<number> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **cart.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **cart.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'cart_pkey' | 'cart_user_id_item_id_key';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **category**
+   * - Table in database
+   */
+  export namespace category {
+    export type Table = 'category';
+    export interface Selectable {
+      /**
+      * **category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **category.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **category.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **category.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **category.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **category.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'category_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **featured_image**
+   * - Table in database
+   */
+  export namespace featured_image {
+    export type Table = 'featured_image';
+    export interface Selectable {
+      /**
+      * **featured_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **featured_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order: number;
+      /**
+      * **featured_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **featured_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url: string;
+      /**
+      * **featured_image.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type: string;
+      /**
+      * **featured_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **featured_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **featured_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order: number;
+      /**
+      * **featured_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **featured_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url: string;
+      /**
+      * **featured_image.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type: string;
+      /**
+      * **featured_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **featured_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **featured_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **featured_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **featured_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **featured_image.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **featured_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **featured_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **featured_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order: number | db.Parameter<number> | db.SQLFragment;
+      /**
+      * **featured_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **featured_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **featured_image.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **featured_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **featured_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **featured_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order?: number | db.Parameter<number> | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment>;
+      /**
+      * **featured_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **featured_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **featured_image.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **featured_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'featured_image_display_order_type_key' | 'featured_image_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **item**
+   * - Table in database
+   */
+  export namespace item {
+    export type Table = 'item';
+    export interface Selectable {
+      /**
+      * **item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **item.description**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      description: string | null;
+      /**
+      * **item.embedding**
+      * - `vector` in database
+      * - Nullable, no default
+      */
+      embedding: c.PgVector | null;
+      /**
+      * **item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **item.price**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      price: db.NumericString;
+      /**
+      * **item.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'Ready Stock'::character varying`
+      */
+      status: string;
+      /**
+      * **item.stock**
+      * - `int4` in database
+      * - `NOT NULL`, default: `0`
+      */
+      stock: number;
+      /**
+      * **item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **item.description**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      description: string | null;
+      /**
+      * **item.embedding**
+      * - `vector` in database
+      * - Nullable, no default
+      */
+      embedding: c.PgVector | null;
+      /**
+      * **item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **item.price**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      price: number;
+      /**
+      * **item.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'Ready Stock'::character varying`
+      */
+      status: string;
+      /**
+      * **item.stock**
+      * - `int4` in database
+      * - `NOT NULL`, default: `0`
+      */
+      stock: number;
+      /**
+      * **item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.description**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      description?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.embedding**
+      * - `vector` in database
+      * - Nullable, no default
+      */
+      embedding?: c.PgVector | db.Parameter<c.PgVector> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, c.PgVector | db.Parameter<c.PgVector> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.price**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      price?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'Ready Stock'::character varying`
+      */
+      status?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.stock**
+      * - `int4` in database
+      * - `NOT NULL`, default: `0`
+      */
+      stock?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.description**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      description?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.embedding**
+      * - `vector` in database
+      * - Nullable, no default
+      */
+      embedding?: c.PgVector | db.Parameter<c.PgVector> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item.price**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      price?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'Ready Stock'::character varying`
+      */
+      status?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.stock**
+      * - `int4` in database
+      * - `NOT NULL`, default: `0`
+      */
+      stock?: number | db.Parameter<number> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.description**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      description?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.embedding**
+      * - `vector` in database
+      * - Nullable, no default
+      */
+      embedding?: c.PgVector | db.Parameter<c.PgVector> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, c.PgVector | db.Parameter<c.PgVector> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item.price**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      price?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'Ready Stock'::character varying`
+      */
+      status?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.stock**
+      * - `int4` in database
+      * - `NOT NULL`, default: `0`
+      */
+      stock?: number | db.Parameter<number> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'item_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **item_category**
+   * - Table in database
+   */
+  export namespace item_category {
+    export type Table = 'item_category';
+    export interface Selectable {
+      /**
+      * **item_category.category_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      category_id: string;
+      /**
+      * **item_category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **item_category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item_category.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **item_category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **item_category.category_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      category_id: string;
+      /**
+      * **item_category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **item_category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item_category.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **item_category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **item_category.category_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      category_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_category.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **item_category.category_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      category_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item_category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_category.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item_category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **item_category.category_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      category_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item_category.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_category.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_category.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item_category.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'item_category_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **item_history**
+   * - Table in database
+   */
+  export namespace item_history {
+    export type Table = 'item_history';
+    export interface Selectable {
+      /**
+      * **item_history.action**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      action: string;
+      /**
+      * **item_history.context**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      context: string | null;
+      /**
+      * **item_history.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **item_history.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item_history.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **item_history.quantity**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      quantity: number | null;
+      /**
+      * **item_history.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+      /**
+      * **item_history.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface JSONSelectable {
+      /**
+      * **item_history.action**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      action: string;
+      /**
+      * **item_history.context**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      context: string | null;
+      /**
+      * **item_history.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **item_history.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item_history.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **item_history.quantity**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      quantity: number | null;
+      /**
+      * **item_history.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+      /**
+      * **item_history.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface Whereable {
+      /**
+      * **item_history.action**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      action?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.context**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      context?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.quantity**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      quantity?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_history.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **item_history.action**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      action: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item_history.context**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      context?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_history.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_history.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_history.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item_history.quantity**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      quantity?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_history.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_history.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string | db.Parameter<string> | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **item_history.action**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      action?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item_history.context**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      context?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_history.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_history.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_history.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item_history.quantity**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      quantity?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_history.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_history.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'item_history_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **item_image**
+   * - Table in database
+   */
+  export namespace item_image {
+    export type Table = 'item_image';
+    export interface Selectable {
+      /**
+      * **item_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **item_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order: number;
+      /**
+      * **item_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url: string;
+      /**
+      * **item_image.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **item_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **item_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **item_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order: number;
+      /**
+      * **item_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **item_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url: string;
+      /**
+      * **item_image.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **item_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **item_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_image.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **item_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **item_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order: number | db.Parameter<number> | db.SQLFragment;
+      /**
+      * **item_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **item_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item_image.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **item_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **item_image.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_image.display_order**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      display_order?: number | db.Parameter<number> | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment>;
+      /**
+      * **item_image.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **item_image.image_url**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      image_url?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item_image.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **item_image.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'item_image_item_id_display_order_key' | 'item_image_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **order**
+   * - Table in database
+   */
+  export namespace order {
+    export type Table = 'order';
+    export interface Selectable {
+      /**
+      * **order.created_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **order.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **order.status**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      status: string;
+      /**
+      * **order.total_payment**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      total_payment: db.NumericString;
+      /**
+      * **order.updated_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+      /**
+      * **order.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface JSONSelectable {
+      /**
+      * **order.created_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampString | null;
+      /**
+      * **order.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **order.status**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      status: string;
+      /**
+      * **order.total_payment**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      total_payment: number;
+      /**
+      * **order.updated_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampString | null;
+      /**
+      * **order.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface Whereable {
+      /**
+      * **order.created_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order.status**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      status?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order.total_payment**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      total_payment?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order.updated_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **order.created_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **order.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **order.status**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      status: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **order.total_payment**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      total_payment?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.DefaultType | db.SQLFragment;
+      /**
+      * **order.updated_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **order.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string | db.Parameter<string> | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **order.created_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **order.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **order.status**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      status?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **order.total_payment**
+      * - `numeric` in database
+      * - `NOT NULL`, default: `0`
+      */
+      total_payment?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **order.updated_at**
+      * - `timestamp` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampString | Date) | db.Parameter<(db.TimestampString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **order.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'order_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **order_item**
+   * - Table in database
+   */
+  export namespace order_item {
+    export type Table = 'order_item';
+    export interface Selectable {
+      /**
+      * **order_item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **order_item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **order_item.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **order_item.item_price**
+      * - `numeric` in database
+      * - `NOT NULL`, no default
+      */
+      item_price: db.NumericString;
+      /**
+      * **order_item.order_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      order_id: string;
+      /**
+      * **order_item.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      quantity: number;
+      /**
+      * **order_item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **order_item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **order_item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **order_item.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **order_item.item_price**
+      * - `numeric` in database
+      * - `NOT NULL`, no default
+      */
+      item_price: number;
+      /**
+      * **order_item.order_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      order_id: string;
+      /**
+      * **order_item.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      quantity: number;
+      /**
+      * **order_item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **order_item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order_item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order_item.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order_item.item_price**
+      * - `numeric` in database
+      * - `NOT NULL`, no default
+      */
+      item_price?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order_item.order_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      order_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order_item.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      quantity?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **order_item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **order_item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **order_item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **order_item.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **order_item.item_price**
+      * - `numeric` in database
+      * - `NOT NULL`, no default
+      */
+      item_price: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment;
+      /**
+      * **order_item.order_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      order_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **order_item.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      quantity: number | db.Parameter<number> | db.SQLFragment;
+      /**
+      * **order_item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **order_item.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **order_item.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **order_item.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **order_item.item_price**
+      * - `numeric` in database
+      * - `NOT NULL`, no default
+      */
+      item_price?: (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment | db.SQLFragment<any, (number | db.NumericString) | db.Parameter<(number | db.NumericString)> | db.SQLFragment>;
+      /**
+      * **order_item.order_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      order_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **order_item.quantity**
+      * - `int4` in database
+      * - `NOT NULL`, no default
+      */
+      quantity?: number | db.Parameter<number> | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment>;
+      /**
+      * **order_item.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'order_item_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **otp**
+   * - Table in database
+   */
+  export namespace otp {
+    export type Table = 'otp';
+    export interface Selectable {
+      /**
+      * **otp.code**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      code: string;
+      /**
+      * **otp.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **otp.email**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
       email: string;
       /**
-      * **test.id**
-      * - `int4` in database
-      * - `NOT NULL`, default: `nextval('test_id_seq'::regclass)`
+      * **otp.expired_time**
+      * - `timestamptz` in database
+      * - Nullable, no default
       */
-      id: number;
+      expired_time: Date | null;
       /**
-      * **test.name**
-      * - `text` in database
+      * **otp.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **otp.type**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
-      name: string;
+      type: string;
+      /**
+      * **otp.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **otp.code**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      code: string;
+      /**
+      * **otp.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **otp.email**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      email: string;
+      /**
+      * **otp.expired_time**
+      * - `timestamptz` in database
+      * - Nullable, no default
+      */
+      expired_time: db.TimestampTzString | null;
+      /**
+      * **otp.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **otp.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type: string;
+      /**
+      * **otp.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
     }
     export interface Whereable {
       /**
-      * **test.email**
-      * - `text` in database
+      * **otp.code**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      code?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **otp.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **otp.email**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
       email?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
-      * **test.id**
-      * - `int4` in database
-      * - `NOT NULL`, default: `nextval('test_id_seq'::regclass)`
+      * **otp.expired_time**
+      * - `timestamptz` in database
+      * - Nullable, no default
       */
-      id?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      expired_time?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
-      * **test.name**
-      * - `text` in database
+      * **otp.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **otp.type**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
-      name?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      type?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **otp.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
     }
     export interface Insertable {
       /**
-      * **test.email**
-      * - `text` in database
+      * **otp.code**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      code: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **otp.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **otp.email**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
       email: string | db.Parameter<string> | db.SQLFragment;
       /**
-      * **test.id**
-      * - `int4` in database
-      * - `NOT NULL`, default: `nextval('test_id_seq'::regclass)`
+      * **otp.expired_time**
+      * - `timestamptz` in database
+      * - Nullable, no default
       */
-      id?: number | db.Parameter<number> | db.DefaultType | db.SQLFragment;
+      expired_time?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
       /**
-      * **test.name**
-      * - `text` in database
+      * **otp.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **otp.type**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
-      name: string | db.Parameter<string> | db.SQLFragment;
+      type: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **otp.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
     }
     export interface Updatable {
       /**
-      * **test.email**
-      * - `text` in database
+      * **otp.code**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      code?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **otp.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **otp.email**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
       email?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
       /**
-      * **test.id**
-      * - `int4` in database
-      * - `NOT NULL`, default: `nextval('test_id_seq'::regclass)`
+      * **otp.expired_time**
+      * - `timestamptz` in database
+      * - Nullable, no default
       */
-      id?: number | db.Parameter<number> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | db.DefaultType | db.SQLFragment>;
+      expired_time?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
       /**
-      * **test.name**
-      * - `text` in database
+      * **otp.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **otp.type**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      type?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **otp.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'otp_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **review**
+   * - Table in database
+   */
+  export namespace review {
+    export type Table = 'review';
+    export interface Selectable {
+      /**
+      * **review.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **review.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **review.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **review.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+      /**
+      * **review.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+      /**
+      * **review.user_rating**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      user_rating: number | null;
+      /**
+      * **review.user_review**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      user_review: string | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **review.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **review.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **review.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **review.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+      /**
+      * **review.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+      /**
+      * **review.user_rating**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      user_rating: number | null;
+      /**
+      * **review.user_review**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      user_review: string | null;
+    }
+    export interface Whereable {
+      /**
+      * **review.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **review.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **review.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **review.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **review.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **review.user_rating**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      user_rating?: number | db.Parameter<number> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, number | db.Parameter<number> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **review.user_review**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      user_review?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **review.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **review.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **review.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **review.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **review.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **review.user_rating**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      user_rating?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **review.user_review**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      user_review?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **review.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **review.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **review.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **review.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **review.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **review.user_rating**
+      * - `int4` in database
+      * - Nullable, no default
+      */
+      user_rating?: number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, number | db.Parameter<number> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **review.user_review**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      user_review?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'review_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **user**
+   * - Table in database
+   */
+  export namespace user {
+    export type Table = 'user';
+    export interface Selectable {
+      /**
+      * **user.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **user.email**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      email: string;
+      /**
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **user.last_login**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      last_login: string | null;
+      /**
+      * **user.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **user.password**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      password: string;
+      /**
+      * **user.phone_number**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      phone_number: string | null;
+      /**
+      * **user.role**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'customer'::character varying`
+      */
+      role: string;
+      /**
+      * **user.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'pending'::character varying`
+      */
+      status: string;
+      /**
+      * **user.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+    }
+    export interface JSONSelectable {
+      /**
+      * **user.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **user.email**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      email: string;
+      /**
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **user.last_login**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      last_login: string | null;
+      /**
+      * **user.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string;
+      /**
+      * **user.password**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      password: string;
+      /**
+      * **user.phone_number**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      phone_number: string | null;
+      /**
+      * **user.role**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'customer'::character varying`
+      */
+      role: string;
+      /**
+      * **user.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'pending'::character varying`
+      */
+      status: string;
+      /**
+      * **user.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+    }
+    export interface Whereable {
+      /**
+      * **user.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.email**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      email?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.last_login**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      last_login?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.password**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      password?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.phone_number**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      phone_number?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.role**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'customer'::character varying`
+      */
+      role?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'pending'::character varying`
+      */
+      status?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **user.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.email**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      email: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.last_login**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      last_login?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.name**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      name: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **user.password**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      password: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **user.phone_number**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      phone_number?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.role**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'customer'::character varying`
+      */
+      role?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'pending'::character varying`
+      */
+      status?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **user.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **user.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.email**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      email?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **user.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.last_login**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      last_login?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.name**
+      * - `varchar` in database
       * - `NOT NULL`, no default
       */
       name?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **user.password**
+      * - `varchar` in database
+      * - `NOT NULL`, no default
+      */
+      password?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **user.phone_number**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      phone_number?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.role**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'customer'::character varying`
+      */
+      role?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.status**
+      * - `varchar` in database
+      * - `NOT NULL`, default: `'pending'::character varying`
+      */
+      status?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
     }
-    export type UniqueIndex = 'test_email_key' | 'test_pkey';
+    export type UniqueIndex = 'user_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **user_detail**
+   * - Table in database
+   */
+  export namespace user_detail {
+    export type Table = 'user_detail';
+    export interface Selectable {
+      /**
+      * **user_detail.address_line_1**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_1: string | null;
+      /**
+      * **user_detail.address_line_2**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_2: string | null;
+      /**
+      * **user_detail.birth_date**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      birth_date: Date | null;
+      /**
+      * **user_detail.city**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      city: string | null;
+      /**
+      * **user_detail.country**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      country: string | null;
+      /**
+      * **user_detail.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **user_detail.gender**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      gender: string | null;
+      /**
+      * **user_detail.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **user_detail.postal_code**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      postal_code: string | null;
+      /**
+      * **user_detail.profile_picture**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      profile_picture: string | null;
+      /**
+      * **user_detail.state**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      state: string | null;
+      /**
+      * **user_detail.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+      /**
+      * **user_detail.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface JSONSelectable {
+      /**
+      * **user_detail.address_line_1**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_1: string | null;
+      /**
+      * **user_detail.address_line_2**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_2: string | null;
+      /**
+      * **user_detail.birth_date**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      birth_date: db.DateString | null;
+      /**
+      * **user_detail.city**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      city: string | null;
+      /**
+      * **user_detail.country**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      country: string | null;
+      /**
+      * **user_detail.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **user_detail.gender**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      gender: string | null;
+      /**
+      * **user_detail.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **user_detail.postal_code**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      postal_code: string | null;
+      /**
+      * **user_detail.profile_picture**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      profile_picture: string | null;
+      /**
+      * **user_detail.state**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      state: string | null;
+      /**
+      * **user_detail.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+      /**
+      * **user_detail.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface Whereable {
+      /**
+      * **user_detail.address_line_1**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_1?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.address_line_2**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_2?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.birth_date**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      birth_date?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.city**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      city?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.country**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      country?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.gender**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      gender?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.postal_code**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      postal_code?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.profile_picture**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      profile_picture?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.state**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      state?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **user_detail.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **user_detail.address_line_1**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_1?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.address_line_2**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_2?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.birth_date**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      birth_date?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.city**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      city?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.country**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      country?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.gender**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      gender?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.postal_code**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      postal_code?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.profile_picture**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      profile_picture?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.state**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      state?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **user_detail.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string | db.Parameter<string> | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **user_detail.address_line_1**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_1?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.address_line_2**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      address_line_2?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.birth_date**
+      * - `date` in database
+      * - Nullable, no default
+      */
+      birth_date?: (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.DateString | Date) | db.Parameter<(db.DateString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.city**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      city?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.country**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      country?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.gender**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      gender?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.postal_code**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      postal_code?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.profile_picture**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      profile_picture?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.state**
+      * - `varchar` in database
+      * - Nullable, no default
+      */
+      state?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **user_detail.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'user_detail_pkey';
+    export type Column = keyof Selectable;
+    export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
+    export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
+    export type SQL = SQLExpression | SQLExpression[];
+  }
+
+  /**
+   * **wishlist**
+   * - Table in database
+   */
+  export namespace wishlist {
+    export type Table = 'wishlist';
+    export interface Selectable {
+      /**
+      * **wishlist.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: Date | null;
+      /**
+      * **wishlist.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **wishlist.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **wishlist.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: Date | null;
+      /**
+      * **wishlist.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface JSONSelectable {
+      /**
+      * **wishlist.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at: db.TimestampTzString | null;
+      /**
+      * **wishlist.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id: string;
+      /**
+      * **wishlist.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string;
+      /**
+      * **wishlist.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at: db.TimestampTzString | null;
+      /**
+      * **wishlist.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string;
+    }
+    export interface Whereable {
+      /**
+      * **wishlist.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **wishlist.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **wishlist.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **wishlist.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
+      /**
+      * **wishlist.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+    }
+    export interface Insertable {
+      /**
+      * **wishlist.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **wishlist.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
+      /**
+      * **wishlist.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id: string | db.Parameter<string> | db.SQLFragment;
+      /**
+      * **wishlist.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
+      /**
+      * **wishlist.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id: string | db.Parameter<string> | db.SQLFragment;
+    }
+    export interface Updatable {
+      /**
+      * **wishlist.created_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      created_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **wishlist.id**
+      * - `uuid` in database
+      * - `NOT NULL`, default: `uuid_generate_v4()`
+      */
+      id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
+      /**
+      * **wishlist.item_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      item_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+      /**
+      * **wishlist.updated_at**
+      * - `timestamptz` in database
+      * - Nullable, default: `now()`
+      */
+      updated_at?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
+      /**
+      * **wishlist.user_id**
+      * - `uuid` in database
+      * - `NOT NULL`, no default
+      */
+      user_id?: string | db.Parameter<string> | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment>;
+    }
+    export type UniqueIndex = 'wishlist_pkey' | 'wishlist_user_id_item_id_key';
     export type Column = keyof Selectable;
     export type OnlyCols<T extends readonly Column[]> = Pick<Selectable, T[number]>;
     export type SQLExpression = Table | db.ColumnNames<Updatable | (keyof Updatable)[]> | db.ColumnValues<Updatable> | Whereable | Column | db.ParentColumn | db.GenericSQLExpression;
@@ -138,20 +3318,20 @@ declare module 'zapatos/schema' {
   /* --- aggregate types --- */
 
   export namespace public {  
-    export type Table = test.Table;
-    export type Selectable = test.Selectable;
-    export type JSONSelectable = test.JSONSelectable;
-    export type Whereable = test.Whereable;
-    export type Insertable = test.Insertable;
-    export type Updatable = test.Updatable;
-    export type UniqueIndex = test.UniqueIndex;
-    export type Column = test.Column;
+    export type Table = cart.Table | category.Table | featured_image.Table | item.Table | item_category.Table | item_history.Table | item_image.Table | order.Table | order_item.Table | otp.Table | review.Table | user.Table | user_detail.Table | wishlist.Table;
+    export type Selectable = cart.Selectable | category.Selectable | featured_image.Selectable | item.Selectable | item_category.Selectable | item_history.Selectable | item_image.Selectable | order.Selectable | order_item.Selectable | otp.Selectable | review.Selectable | user.Selectable | user_detail.Selectable | wishlist.Selectable;
+    export type JSONSelectable = cart.JSONSelectable | category.JSONSelectable | featured_image.JSONSelectable | item.JSONSelectable | item_category.JSONSelectable | item_history.JSONSelectable | item_image.JSONSelectable | order.JSONSelectable | order_item.JSONSelectable | otp.JSONSelectable | review.JSONSelectable | user.JSONSelectable | user_detail.JSONSelectable | wishlist.JSONSelectable;
+    export type Whereable = cart.Whereable | category.Whereable | featured_image.Whereable | item.Whereable | item_category.Whereable | item_history.Whereable | item_image.Whereable | order.Whereable | order_item.Whereable | otp.Whereable | review.Whereable | user.Whereable | user_detail.Whereable | wishlist.Whereable;
+    export type Insertable = cart.Insertable | category.Insertable | featured_image.Insertable | item.Insertable | item_category.Insertable | item_history.Insertable | item_image.Insertable | order.Insertable | order_item.Insertable | otp.Insertable | review.Insertable | user.Insertable | user_detail.Insertable | wishlist.Insertable;
+    export type Updatable = cart.Updatable | category.Updatable | featured_image.Updatable | item.Updatable | item_category.Updatable | item_history.Updatable | item_image.Updatable | order.Updatable | order_item.Updatable | otp.Updatable | review.Updatable | user.Updatable | user_detail.Updatable | wishlist.Updatable;
+    export type UniqueIndex = cart.UniqueIndex | category.UniqueIndex | featured_image.UniqueIndex | item.UniqueIndex | item_category.UniqueIndex | item_history.UniqueIndex | item_image.UniqueIndex | order.UniqueIndex | order_item.UniqueIndex | otp.UniqueIndex | review.UniqueIndex | user.UniqueIndex | user_detail.UniqueIndex | wishlist.UniqueIndex;
+    export type Column = cart.Column | category.Column | featured_image.Column | item.Column | item_category.Column | item_history.Column | item_image.Column | order.Column | order_item.Column | otp.Column | review.Column | user.Column | user_detail.Column | wishlist.Column;
   
-    export type AllBaseTables = [test.Table];
+    export type AllBaseTables = [cart.Table, category.Table, featured_image.Table, item.Table, item_category.Table, item_history.Table, item_image.Table, order.Table, order_item.Table, otp.Table, review.Table, user.Table, user_detail.Table, wishlist.Table];
     export type AllForeignTables = [];
     export type AllViews = [];
     export type AllMaterializedViews = [];
-    export type AllTablesAndViews = [test.Table];
+    export type AllTablesAndViews = [cart.Table, category.Table, featured_image.Table, item.Table, item_category.Table, item_history.Table, item_image.Table, order.Table, order_item.Table, otp.Table, review.Table, user.Table, user_detail.Table, wishlist.Table];
   }
 
 
@@ -179,35 +3359,139 @@ declare module 'zapatos/schema' {
   /* === lookups === */
 
   export type SelectableForTable<T extends Table> = {
-    "test": test.Selectable;
+    "cart": cart.Selectable;
+    "category": category.Selectable;
+    "featured_image": featured_image.Selectable;
+    "item": item.Selectable;
+    "item_category": item_category.Selectable;
+    "item_history": item_history.Selectable;
+    "item_image": item_image.Selectable;
+    "order": order.Selectable;
+    "order_item": order_item.Selectable;
+    "otp": otp.Selectable;
+    "review": review.Selectable;
+    "user": user.Selectable;
+    "user_detail": user_detail.Selectable;
+    "wishlist": wishlist.Selectable;
   }[T];
 
   export type JSONSelectableForTable<T extends Table> = {
-    "test": test.JSONSelectable;
+    "cart": cart.JSONSelectable;
+    "category": category.JSONSelectable;
+    "featured_image": featured_image.JSONSelectable;
+    "item": item.JSONSelectable;
+    "item_category": item_category.JSONSelectable;
+    "item_history": item_history.JSONSelectable;
+    "item_image": item_image.JSONSelectable;
+    "order": order.JSONSelectable;
+    "order_item": order_item.JSONSelectable;
+    "otp": otp.JSONSelectable;
+    "review": review.JSONSelectable;
+    "user": user.JSONSelectable;
+    "user_detail": user_detail.JSONSelectable;
+    "wishlist": wishlist.JSONSelectable;
   }[T];
 
   export type WhereableForTable<T extends Table> = {
-    "test": test.Whereable;
+    "cart": cart.Whereable;
+    "category": category.Whereable;
+    "featured_image": featured_image.Whereable;
+    "item": item.Whereable;
+    "item_category": item_category.Whereable;
+    "item_history": item_history.Whereable;
+    "item_image": item_image.Whereable;
+    "order": order.Whereable;
+    "order_item": order_item.Whereable;
+    "otp": otp.Whereable;
+    "review": review.Whereable;
+    "user": user.Whereable;
+    "user_detail": user_detail.Whereable;
+    "wishlist": wishlist.Whereable;
   }[T];
 
   export type InsertableForTable<T extends Table> = {
-    "test": test.Insertable;
+    "cart": cart.Insertable;
+    "category": category.Insertable;
+    "featured_image": featured_image.Insertable;
+    "item": item.Insertable;
+    "item_category": item_category.Insertable;
+    "item_history": item_history.Insertable;
+    "item_image": item_image.Insertable;
+    "order": order.Insertable;
+    "order_item": order_item.Insertable;
+    "otp": otp.Insertable;
+    "review": review.Insertable;
+    "user": user.Insertable;
+    "user_detail": user_detail.Insertable;
+    "wishlist": wishlist.Insertable;
   }[T];
 
   export type UpdatableForTable<T extends Table> = {
-    "test": test.Updatable;
+    "cart": cart.Updatable;
+    "category": category.Updatable;
+    "featured_image": featured_image.Updatable;
+    "item": item.Updatable;
+    "item_category": item_category.Updatable;
+    "item_history": item_history.Updatable;
+    "item_image": item_image.Updatable;
+    "order": order.Updatable;
+    "order_item": order_item.Updatable;
+    "otp": otp.Updatable;
+    "review": review.Updatable;
+    "user": user.Updatable;
+    "user_detail": user_detail.Updatable;
+    "wishlist": wishlist.Updatable;
   }[T];
 
   export type UniqueIndexForTable<T extends Table> = {
-    "test": test.UniqueIndex;
+    "cart": cart.UniqueIndex;
+    "category": category.UniqueIndex;
+    "featured_image": featured_image.UniqueIndex;
+    "item": item.UniqueIndex;
+    "item_category": item_category.UniqueIndex;
+    "item_history": item_history.UniqueIndex;
+    "item_image": item_image.UniqueIndex;
+    "order": order.UniqueIndex;
+    "order_item": order_item.UniqueIndex;
+    "otp": otp.UniqueIndex;
+    "review": review.UniqueIndex;
+    "user": user.UniqueIndex;
+    "user_detail": user_detail.UniqueIndex;
+    "wishlist": wishlist.UniqueIndex;
   }[T];
 
   export type ColumnForTable<T extends Table> = {
-    "test": test.Column;
+    "cart": cart.Column;
+    "category": category.Column;
+    "featured_image": featured_image.Column;
+    "item": item.Column;
+    "item_category": item_category.Column;
+    "item_history": item_history.Column;
+    "item_image": item_image.Column;
+    "order": order.Column;
+    "order_item": order_item.Column;
+    "otp": otp.Column;
+    "review": review.Column;
+    "user": user.Column;
+    "user_detail": user_detail.Column;
+    "wishlist": wishlist.Column;
   }[T];
 
   export type SQLForTable<T extends Table> = {
-    "test": test.SQL;
+    "cart": cart.SQL;
+    "category": category.SQL;
+    "featured_image": featured_image.SQL;
+    "item": item.SQL;
+    "item_category": item_category.SQL;
+    "item_history": item_history.SQL;
+    "item_image": item_image.SQL;
+    "order": order.SQL;
+    "order_item": order_item.SQL;
+    "otp": otp.SQL;
+    "review": review.SQL;
+    "user": user.SQL;
+    "user_detail": user_detail.SQL;
+    "wishlist": wishlist.SQL;
   }[T];
 
 }

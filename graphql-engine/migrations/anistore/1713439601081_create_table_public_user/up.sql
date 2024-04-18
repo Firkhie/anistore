@@ -1,0 +1,2 @@
+CREATE TABLE "public"."user" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" varchar NOT NULL, "email" varchar NOT NULL, "phone_number" varchar, "password" varchar NOT NULL, "status" varchar NOT NULL DEFAULT 'pending', "last_login" varchar, "role" varchar NOT NULL DEFAULT 'customer', "created_at" timestamp with time zone DEFAULT now(), "updated_at" timestamp with time zone DEFAULT now(), PRIMARY KEY ("id") , UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

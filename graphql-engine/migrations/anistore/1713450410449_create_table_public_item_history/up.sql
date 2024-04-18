@@ -1,0 +1,2 @@
+CREATE TABLE "public"."item_history" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "item_id" uuid NOT NULL, "user_id" uuid NOT NULL, "action" varchar NOT NULL, "context" varchar, "quantity" integer, "created_at" timestamp with time zone DEFAULT now(), "updated_at" timestamp with time zone DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("item_id") REFERENCES "public"."item"("id") ON UPDATE no action ON DELETE no action, FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON UPDATE no action ON DELETE no action, UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

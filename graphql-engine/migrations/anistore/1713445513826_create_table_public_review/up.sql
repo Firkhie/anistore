@@ -1,0 +1,2 @@
+CREATE TABLE "public"."review" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NOT NULL, "item_id" uuid NOT NULL, "user_review" varchar, "user_rating" integer, "created_at" timestamp with time zone DEFAULT now(), "updated_at" timestamp with time zone DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON UPDATE no action ON DELETE no action, FOREIGN KEY ("item_id") REFERENCES "public"."item"("id") ON UPDATE no action ON DELETE no action, UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

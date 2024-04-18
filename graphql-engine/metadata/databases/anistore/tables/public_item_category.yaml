@@ -1,0 +1,3 @@
+table:
+  name: item_category
+  schema: public
