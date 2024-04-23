@@ -1,6 +1,6 @@
 import { pool } from "../../database/pool";
 import { database, schema } from "../../zapatos";
-import { PatchUserParams, UserParams } from "./types";
+import { EditUserParams, UserParams } from "./types";
 
 export default class User {
   private id: string;
@@ -33,7 +33,7 @@ export default class User {
   //   const { originalname } = params;
 
   // }
-  async patch(params: PatchUserParams) {
+  async edit(params: EditUserParams) {
     const { phone_number, birth_date, gender, address_line_1, address_line_2, city, state, country, postal_code } = params;
     let userPayload: schema.user.Updatable = {
       updated_at: new Date()
