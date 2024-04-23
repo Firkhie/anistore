@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import express from "express";
 import { initSequelize } from "./database/sequelize";
-import { user, otp } from "./routers";
+import { user, otp, item } from "./routers";
 import bodyParser from "body-parser"
 
 const env = process.env.NODE_ENV || "development";
@@ -24,8 +24,11 @@ if (env === "development" || env === "test") {
     app.use(bodyParser.urlencoded({ limit: "250mb", extended: true }));
     app.use(bodyParser.json({ limit: "250mb" }));
     app.use(bodyParser.text());
+
     app.use(user);
     app.use(otp);
+    app.use(item);
+
     app.listen(process.env.BACKEND_SERVER_PORT, () => {
       if (env === "development") {
         console.log(`server ready at http://localhost:${process.env.BACKEND_SERVER_PORT}`);

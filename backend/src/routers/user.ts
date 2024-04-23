@@ -72,7 +72,7 @@ user.patch("/user", jwtAuthMiddleware, async (req: CustomRequest, res, next) => 
   try {
     const id = req.locals.user.user_id
     const { phone_number, birth_date, gender, address_line_1, address_line_2, city, state, country, postal_code } = req.body;
-    const data = await new User({ id }).patch({ phone_number, birth_date, gender, address_line_1, address_line_2, city, state, country, postal_code });
+    const data = await new User({ id }).edit({ phone_number, birth_date, gender, address_line_1, address_line_2, city, state, country, postal_code });
     res.status(200).json({ status: "success", data });
   } catch (error) {
     console.log(error);
