@@ -2433,10 +2433,10 @@ declare module 'zapatos/schema' {
       id: string;
       /**
       * **user.last_login**
-      * - `varchar` in database
+      * - `timestamptz` in database
       * - Nullable, no default
       */
-      last_login: string | null;
+      last_login: Date | null;
       /**
       * **user.name**
       * - `varchar` in database
@@ -2495,10 +2495,10 @@ declare module 'zapatos/schema' {
       id: string;
       /**
       * **user.last_login**
-      * - `varchar` in database
+      * - `timestamptz` in database
       * - Nullable, no default
       */
-      last_login: string | null;
+      last_login: db.TimestampTzString | null;
       /**
       * **user.name**
       * - `varchar` in database
@@ -2557,10 +2557,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
       /**
       * **user.last_login**
-      * - `varchar` in database
+      * - `timestamptz` in database
       * - Nullable, no default
       */
-      last_login?: string | db.Parameter<string> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, string | db.Parameter<string> | db.SQLFragment | db.ParentColumn>;
+      last_login?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | db.SQLFragment | db.ParentColumn>;
       /**
       * **user.name**
       * - `varchar` in database
@@ -2619,10 +2619,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment;
       /**
       * **user.last_login**
-      * - `varchar` in database
+      * - `timestamptz` in database
       * - Nullable, no default
       */
-      last_login?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment;
+      last_login?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment;
       /**
       * **user.name**
       * - `varchar` in database
@@ -2681,10 +2681,10 @@ declare module 'zapatos/schema' {
       id?: string | db.Parameter<string> | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | db.DefaultType | db.SQLFragment>;
       /**
       * **user.last_login**
-      * - `varchar` in database
+      * - `timestamptz` in database
       * - Nullable, no default
       */
-      last_login?: string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, string | db.Parameter<string> | null | db.DefaultType | db.SQLFragment>;
+      last_login?: (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment | db.SQLFragment<any, (db.TimestampTzString | Date) | db.Parameter<(db.TimestampTzString | Date)> | null | db.DefaultType | db.SQLFragment>;
       /**
       * **user.name**
       * - `varchar` in database
