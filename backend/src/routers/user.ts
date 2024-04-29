@@ -4,8 +4,14 @@ import Login from "../services/user/login";
 import { CustomRequest, jwtAuthMiddleware } from "../middlewares/authentication";
 import User from "../services/user";
 import multer, { Multer } from "multer";
+import MinioStorage from "../services/storage/minio";
+import { v4 } from "uuid";
+import UploadData, { UploadDataParams } from "../services/upload";
 
-const upload = multer({ dest: "tmp/resources/" })
+const upload = multer({
+  dest: "tmp/resources/",
+  limits: { fileSize: 100000000 }
+});
 const user = express.Router();
 
 user.post("/register", async (req, res, next) => {
@@ -54,18 +60,26 @@ user.get("/user", jwtAuthMiddleware, async (req: CustomRequest, res, next) => {
   }
 })
 
-// user.patch("/user/:id/picture", jwtAuthMiddleware, upload.single("profile_pict"), async (req, res, next) => {
-//   console.log("profile pict patch api..");
-//   try {
-//     const { id } = req.params;
-//     const file = req.file as Express.Multer.File;
-//     const data = await new User({ id }).patchPict(file);
-//     res.status(200).json({ status: "success", data });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).json({ status: "error", message: error.message });
-//   }
-// })
+user.patch("/user/:id/picture", jwtAuthMiddleware, upload.single("file"), async (req: CustomRequest, res, next) => {
+  console.log("profile pict patch api..");
+  try {
+    const { id } = req.params;
+    const { user_id } = req.locals.user
+    const file = req.file as Express.Multer.File;
+    const { originalname } = file;
+    const fileName = `${v4()}_${originalname}`;
+    const params: UploadDataParams = {
+      fileName,
+      file
+    };
+    const filePath = await new UploadData(params).execute();
+    const data = await new MinioStorage({ directory: "profile_picture", user_id }).uploadFile({ fileName, filePath, type: "profile_pict" });
+    res.status(200).json({ status: "success", data });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ status: "error", message: error.message });
+  }
+})
 
 user.patch("/user", jwtAuthMiddleware, async (req: CustomRequest, res, next) => {
   console.log("user patch api..");
